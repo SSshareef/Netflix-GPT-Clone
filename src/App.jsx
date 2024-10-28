@@ -1,12 +1,12 @@
-import React from "react";
+import { Provider } from "react-redux";
 import Body from "./components/Body";
-import Header from "./components/Header";
+import appStore from "./utils/appStore";
 
 const App = () => {
   return (
-    <div>
+    <Provider store={appStore}>
       <Body />
-    </div>
+    </Provider>
   );
 };
 
