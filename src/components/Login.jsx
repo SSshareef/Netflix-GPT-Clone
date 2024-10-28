@@ -1,6 +1,11 @@
 import React, { useRef, useState } from "react";
 import Header from "./Header";
 import { checkValidation } from "../utils/validate";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { auth } from "../utils/firebase";
 
 const Login = () => {
   const [isSignInForm, setIsSignInForm] = useState(true);
@@ -10,19 +15,56 @@ const Login = () => {
   const email = useRef(null);
   const password = useRef(null);
 
-  const toggleSignIn = () => {
-    setIsSignInForm(!isSignInForm);
-  };
-
   const HandleButtonClick = () => {
     // form validation
     const message = checkValidation(
-      name.current.value,
       email.current.value,
       password.current.value
     );
     setErrorMessage(message);
+    if (message) return;
+    // sign-in sign-up form login
+    if (!isSignInForm) {
+      // signUp logic
+      createUserWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed up
+          const user = userCredential.user;
+          console.log(user);
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(`${errorCode}=>${errorMessage}`);
+        });
+    } else {
+      // signIn Logic
+      signInWithEmailAndPassword(
+        auth,
+        email.current.value,
+        password.current.value
+      )
+        .then((userCredential) => {
+          // Signed in
+          const user = userCredential.user;
+          console.log(user)
+        })
+        .catch((error) => {
+          const errorCode = error.code;
+          const errorMessage = error.message;
+          setErrorMessage(`${errorCode} => ${errorMessage}`)
+        });
+    }
   };
+
+  const toggleSignIn = () => {
+    setIsSignInForm(!isSignInForm);
+  };
+
   return (
     <div>
       <Header />
@@ -43,6 +85,7 @@ const Login = () => {
         </h1>
         {!isSignInForm && (
           <input
+            ref={name}
             type="text"
             placeholder="Name"
             className="p-3 mx-0 my-2 w-full rounded-sm bg-gray-500 bg-opacity-30 border-2 focus:opacity-20 border-slate-700 outline-white placeholder-white"
