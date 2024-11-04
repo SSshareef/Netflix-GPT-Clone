@@ -5,7 +5,7 @@ import "./index.css";
 
 const rootElement = document.getElementById("root");  // ✅ Properly initialized
 createRoot(rootElement).render(
-  <StrictMode>
+  // <StrictMode>
     <App />
-  </StrictMode>
+  // {/* </StrictMode> */}
 );

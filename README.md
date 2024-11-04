@@ -31,6 +31,7 @@
 - Update store with Trailer Video data
 - Embedded the Youtube video and make it auto-play and mute
 - Added styles to MainContainer
+- Build SecondaryContainer
 
 # Features
 
