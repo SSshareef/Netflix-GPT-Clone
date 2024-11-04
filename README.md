@@ -32,6 +32,12 @@
 - Embedded the Youtube video and make it auto-play and mute
 - Added styles to MainContainer
 - Build SecondaryContainer
+- Build movie list
+- Build Movie Card
+- TMDB image CDN URL
+- Made the Browse page with Tailwind
+- usePopularMovies Custom Hook
+- GPT Search feature
 
 # Features
 
